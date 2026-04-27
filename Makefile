@@ -7,14 +7,12 @@ default: help;
 help:
 	@echo "Name: ${Product}-${Project}"
 	@echo "Description: ${Description}"
-	@echo "Credits: zoph.io - https://zoph.io"
 	@echo ""
 	@echo "Available commands:"
-	@echo "	build - build artifacts ${Product} for ${Project}"
-	@echo "	deploy - deploy ${Product} for ${Project} - also run 'build' command"
-	@echo "	---"
-	@echo "	delete - delete ${Product} for ${Project}"
-	@echo "	clean - clean the build folder and artifacts"
+	@echo "	build  - build artifacts"
+	@echo "	deploy - build and deploy"
+	@echo "	delete - delete the stack"
+	@echo "	clean  - remove build artifacts"
 
 ###################### Parameters ######################
 Product := subnet-watcher
@@ -22,10 +20,6 @@ Project := myproject
 Environment := sandbox
 
 AWSRegion := eu-west-1
-
-# Alerting
-PercentageRemainingWarning := 5
-AlertsRecipient := john.doe@contoso.com
 
 # Generated
 Description := ${Product} - ${Project} - ${Environment}
@@ -48,8 +42,6 @@ deploy: build
 			pDescription='${Description}' \
 			pEnv=${Environment} \
 			pAWSRegion=${AWSRegion} \
-			pAlertsRecipient='${AlertsRecipient}' \
-			pPercentageRemainingWarning=${PercentageRemainingWarning} \
 		--no-fail-on-empty-changeset
 
 delete:
